@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500px" height="500px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#1C1D3C;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:#83A9DA;}
+	.st2{fill:#4272B7;}
+	.st3{fill:#4A4A99;}
+	.st4{fill:none;stroke:#4A4A99;stroke-width:3;stroke-miterlimit:10;}
+	.st5{fill:none;}
+	.st6{display:none;fill:#83A9DA;stroke:#83A9DA;stroke-miterlimit:10;}
+	.st7{font-family:'MyriadPro-Regular';}
+	.st8{font-size:56px;}
+</style>
+<rect x="0.5" y="0.5" class="st0" width="499" height="500"/>
+<g>
+	<g>
+		<g>
+			<path class="st1" d="M104.15,268.84H39.47c-1.52,0-2.76,1.23-2.76,2.76v99.77c0,1.52,1.23,2.76,2.76,2.76h64.69
+				c1.52,0,2.76-1.23,2.76-2.76V271.6C106.91,270.08,105.68,268.84,104.15,268.84z"/>
+			<path class="st2" d="M187.12,268.84h-64.69c-1.52,0-2.76,1.23-2.76,2.76v99.77c0,1.52,1.23,2.76,2.76,2.76h64.69
+				c1.52,0,2.76-1.23,2.76-2.76V271.6C189.88,270.08,188.64,268.84,187.12,268.84z"/>
+			<path class="st2" d="M273.28,183.93h-64.69c-1.52,0-2.76,1.23-2.76,2.76v184.68c0,1.52,1.23,2.76,2.76,2.76h64.69
+				c1.52,0,2.76-1.23,2.76-2.76V186.69C276.03,185.17,274.8,183.93,273.28,183.93z"/>
+			<path class="st2" d="M359.43,241.67h-64.69c-1.52,0-2.76,1.23-2.76,2.76v126.94c0,1.52,1.23,2.76,2.76,2.76h64.69
+				c1.52,0,2.76-1.23,2.76-2.76V244.43C362.19,242.9,360.96,241.67,359.43,241.67z"/>
+			<path class="st3" d="M445.59,211.1H380.9c-1.52,0-2.76,1.23-2.76,2.76v157.51c0,1.52,1.23,2.76,2.76,2.76h64.69
+				c1.52,0,2.76-1.23,2.76-2.76V213.86C448.35,212.34,447.11,211.1,445.59,211.1z"/>
+		</g>
+		<polyline class="st4" points="37.39,199.55 110.75,249.82 189.54,168.31 266.98,146.57 343.06,214.5 409.63,164.23 		"/>
+	</g>
+	<polygon class="st2" points="463.29,126.87 462.86,127.53 425.82,185.21 425.42,185.51 390.75,142.02 462.46,127.04 	"/>
+</g>
+<rect y="312.94" class="st5" width="500" height="96"/>
+<text transform="matrix(1 0 0 1 71.6987 352.6953)" class="st6 st7 st8">e-spotmarkt.de</text>
+</svg>

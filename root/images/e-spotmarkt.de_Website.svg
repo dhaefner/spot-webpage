@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4372b7;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #4a4a99;
+        stroke-width: 3px;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #1c1e3d;
+        stroke: #1d1d1b;
+      }
+
+      .cls-4 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 56px;
+        stroke: #83a9da;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #83a9da;
+      }
+
+      .cls-6 {
+        fill: #4a4a99;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.7, SVG Export Plug-In . SVG Version: 1.2.0 Build 194)  -->
+  <g>
+    <g id="Ebene_1">
+      <rect class="cls-3" x=".5" y=".5" width="499" height="500"/>
+      <g>
+        <g>
+          <g>
+            <rect class="cls-5" x="93" y="225.5" width="51.67" height="77.5" rx="2.76" ry="2.76"/>
+            <rect class="cls-1" x="154.07" y="225.5" width="51.67" height="77.5" rx="2.76" ry="2.76"/>
+            <rect class="cls-1" x="217.49" y="163" width="51.67" height="140" rx="2.76" ry="2.76"/>
+            <rect class="cls-1" x="280.91" y="205.5" width="51.67" height="97.5" rx="2.76" ry="2.76"/>
+            <rect class="cls-6" x="344.33" y="183" width="51.67" height="120" rx="2.76" ry="2.76"/>
+          </g>
+          <polyline class="cls-2" points="93.5 174.5 147.5 211.5 205.5 151.5 262.5 135.5 318.5 185.5 367.5 148.5"/>
+        </g>
+        <polygon class="cls-1" points="407 121 406.68 121.48 379.42 163.94 379.12 164.16 353.6 132.15 406.39 121.12 407 121"/>
+      </g>
+      <text class="cls-4" transform="translate(71.7 352.7)"><tspan x="0" y="0">e-spotmarkt.de</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 31 26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #307cf0;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.7, SVG Export Plug-In . SVG Version: 1.2.0 Build 194)  -->
+  <g>
+    <g id="Ebene_1">
+      <path class="cls-1" d="M1.8,1v24"/>
+      <path class="cls-1" d="M1.8,25h27.4"/>
+      <path class="cls-1" d="M6.5,19c1.1,0,2-.9,2-2s-.9-2-2-2-2,.9-2,2,.9,2,2,2Z"/>
+      <path class="cls-1" d="M12.5,8.3c1.1,0,2-.9,2-2s-.9-2-2-2-2,.9-2,2,.9,2,2,2Z"/>
+      <path class="cls-1" d="M19.2,18.3c1.1,0,2-.9,2-2s-.9-2-2-2-2,.9-2,2,.9,2,2,2Z"/>
+      <path class="cls-1" d="M27.2,10.3c1.1,0,2-.9,2-2s-.9-2-2-2-2,.9-2,2,.9,2,2,2Z"/>
+      <path class="cls-1" d="M2.5,17.7h2"/>
+      <path class="cls-1" d="M7.8,15.7l3.4-8"/>
+      <path class="cls-1" d="M13.8,7.7l5.4,6.6"/>
+      <path class="cls-1" d="M21.2,15l4-5.3"/>
+    </g>
+  </g>
+</svg>

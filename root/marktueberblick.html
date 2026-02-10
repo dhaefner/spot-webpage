@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marktüberblick</title>
+
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link rel="icon" type="image/svg+xml" href="../static/images/lightning.svg">
+    <link rel="stylesheet" href="../static/css/stylesheet.css">
+    <script src="../static/js/scripts.js"></script>
+</head>
+<body>
+    {% include 'header.html'%}
+
+     <main>
+        <section>
+            <h1>Marktüberblick</h1>
+            <p>Willkommen zum Marktüberblick. Hier finden Sie aktuelle Informationen und Analysen zum Energiemarkt.</p>
+        </section>
+
+        <section>
+            <div>
+                <form>
+                    <label for="datePicker">Datum auswählen:</label>
+                    <input type="date" id="datePicker" name="date" value="{{ selected_date }}">
+                    <button type="submit">Anzeigen</button>
+                </form>
+            </div>
+
+            <h2>Marktdaten für {{ selected_date }}</h2>
+            <div class="split-tables">
+                
+
+                <div class="split-table left">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Zeit</th>
+                                <th>EUR/MWh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in data_left %}
+                                <tr>
+                                    <td>{{ time_left[loop.index0] }}</td>
+                                    <td>{{ row.Price_Amount }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="split-table right">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Zeit</th>
+                                <th>EUR/MWh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in data_right %}
+                                <tr>
+                                    <td>{{ time_right[loop.index0] }}</td>
+                                    <td>{{ row.Price_Amount }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'footer.html'%}
+</body>
+</html>
