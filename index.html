@@ -14,6 +14,7 @@
 </head>
 <body>
     {% include 'header.html'%}
+    <div id="header"></div>
 
     <main>
         <section>
@@ -95,7 +96,21 @@
         </section>
     </main>
     
+    <div id="footer"></div>
     {% include 'footer.html'%}
     
+    <script>
+        function loadHTML(id, url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                })
+        }
+
+        loadHTML("header", "header.html")
+        loadHTML("footer", "footer.html")
+    </script>
+
 </body>
 </html>
