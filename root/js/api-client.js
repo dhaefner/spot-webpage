@@ -117,9 +117,14 @@ async function loadData() {
 
         let data = await response.json();
 
-        const labels = data.map(d => {
-            const hour = String(d.position -1).padStart(2, "0");
-            return `${hour}:00`;
+        const labels = data.map((d, idx) => {
+            let k = null;
+            if (!Number.isFinite(k)) k = idx +1;
+            const zero = Number(k) -1;
+            const hour = Math.floor(zero /4);
+            const minute = (zero %4)*15;
+
+            return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
         });
 
         const values = data.map(d => Number(d.value));
@@ -134,7 +139,7 @@ async function loadData() {
         stromChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels,
+                labels: labels,
                 datasets: [{
                     label: 'Strompreise',
                     data: values,
@@ -142,14 +147,20 @@ async function loadData() {
                     backgroundColor: 'rgba(75,192,192,0.2)',
                     fill: true,
                     tension: 0.12,
-                    pointRadius: 2
+                    borderWidth: 2,
+                    pointRadius: 2,
+                    spanGaps: true
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
+                    x: {
+                        title: {display: true, text: "Zeit (15-Minuten-Intervalle)"}
+                    },
                     y: {
+                        title: {display: true, text: "Preis (€/MWh)"},
                         min: minVal - padding,
                         max: maxVal + padding
                     }
