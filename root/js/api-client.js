@@ -1,0 +1,254 @@
+/* api-client.js */
+
+let stromChart = null
+
+const API_BASE = "https://api.e-spotmarkt.de"
+
+function normalizeDate(rawDate, fallback = '20250101') {
+    rawDate = (rawDate || '').toString().trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
+        return rawDate.replace(/-/g, '');
+    }
+    if (/^\d{8}$/.test(rawDate)) {
+        return rawDate;
+    }
+    if (rawDate) {
+        const digs = rawDate.replace(/[^0-9]/g, '');
+        return (digs + '00000000').slice(0, 8);
+    }
+    return fallback;
+}
+
+function parsePriceArray(arr) {
+    if (!Array.isArray(arr)) return [];
+
+    return arr.map(o => {
+        let raw = null;
+        if (o.preis != null) raw = o.preis;
+        else if (o.Price_Amount != null) raw = o.Price_Amount;
+        else if (o.price != null) raw = o.price;
+        else if (o.value != null) raw = o.value;
+
+        if (raw == null) return NaN;
+
+        if (typeof raw === 'string') {
+            raw = raw.replace(/, /g, '.').replace(/[^0-9.\-+eE]/g, '');
+        }
+        return Number(raw);
+    });
+}
+
+function movingAverage(values, window = 5) {
+    const n = values.length;
+    const out = new Array(n).fill(NaN);
+
+    for (let i = 0; i < n; i++) {
+        let sum = 0, cnt = 0;
+
+        for (let k = i - Math.floor(window / 2); k <= i + Math.floor(window / 2); k++) {
+            if (k >= 0 && k < n && Number.isFinite(values[k])) {
+                sum += values[k];
+                cnt++;
+            }
+        }
+        if (cnt > 0) {
+            out[i] = sum / cnt;
+        }
+    }
+    return out;
+}
+
+function makeShifted(values, shift) {
+    const len = values.length;
+    const out = new Array(len).fill(NaN);
+    
+    for (let i = 0; i < len; i++) {
+        const j = i + shift;
+        if (j >= 0 && j < len) {
+            out[i] = Number.isFinite(values[j]) ? values[j] : NaN;
+        }
+    }
+    return out;
+}
+
+function addDataset(label, dataArray, color) {
+    if (!stromChart) return;
+
+    const len = stromChart.data.labels.length;
+    const data = new Array(len)
+
+    for (let i = 0; i < len; i++) {
+        data[i] = Number.isFinite(dataArray[i]) ? dataArray[i] : NaN;
+    }
+
+    stromChart.data.datasets.push({
+        label,
+        data,
+        borderColor: color,
+        backgroudColor: color,
+        fill: false,
+        tension: 0.12,
+        borderWith: 2,
+        pointRadius: 2,
+        spanGaps: true
+    });
+
+    stromChart.update();
+}
+
+function removeDatasetByLabel(label) {
+    if (!stromChart) return;
+    const i = stromChart.data.datasets.findIndex(d => d.label === label);
+    if (i !== -1) {
+        stromChart.data.datasets.splice(i, 1);
+        stromChart.update();
+    }
+}
+
+
+async function loadData() {
+    try {
+        const rawDate = document.getElementById("dateInput")?.value;
+        const apiDate = normalizeDate(rawDate);
+
+        const response = await fetch(`${API_BASE}/data?date=${apiDate}`);
+        if (!response.ok) throw new Error(response.status);
+
+        let data = await response.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+            data = Array.from({ length: 96 }, (_, i) => ({
+                preis: (30 + 8 * Math.sin((i / 96) * Math.PI * 2)).toFixed(2)
+            }));
+        }
+
+        const values = parsePriceArray(data);
+
+        const labels = values.map((_, i) => {
+            const hour = Math.floor(i / 4);
+            const minute = (i % 4) * 15;
+            return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        });
+
+        const numericValues = values.filter(Number.isFinite);
+        const maxVal = Math.max(...numericValues);
+        const minVal = Math.min(...numericValues);
+        const padding = (maxVal - minVal) * 0.1;
+
+        const ctx = document.getElementById("stromChart").getContext("2d");
+        if (stromChart) stromChart.destroy();
+
+        stromChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Strompreise',
+                    data: values,
+                    borderColor: 'rgba(75,192,192,1)',
+                    backgroundColor: 'rgba(75,192,192,0.2)',
+                    fill: true,
+                    tension: 0.12,
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: minVal - padding,
+                        max: maxVal + padding
+                    }
+                }
+            }
+        });
+
+    } catch (err) {
+        console.error("Fehler beim Laden:", err);
+    }
+}
+
+window.loadData = loadData;
+
+/* ============================= */
+/* Checkbox Handlers             */
+/* ============================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    loadData();
+
+    document.getElementById('cb_dayaverage')?.addEventListener('change', async e => {
+        if (!stromChart) return;
+
+        if (e.target.checked) {
+            const date = normalizeDate(document.getElementById('dateInput')?.value);
+            const r = await fetch(`${API_BASE}/dayAverage?date=${date}`);
+            const arr = await r.json();
+            const vals = parsePriceArray(arr);
+
+            if (vals.length === 0) {
+                addDataset('Dayaverage', movingAverage(stromChart.data.datasets[0].data, 9), 'orange');
+            } else {
+                addDataset('Dayaverage', vals, 'orange');
+            }
+        } else {
+            removeDatasetByLabel('Dayaverage');
+        }
+    });
+
+    document.getElementById('cb_lastyear')?.addEventListener('change', async e => {
+        if (!stromChart) return;
+
+        if (e.target.checked) {
+            const date = normalizeDate(document.getElementById('dateInput')?.value);
+            const r = await fetch(`${API_BASE}/api/strompreise/lastyear?date=${date}`);
+            const arr = await r.json();
+            const vals = parsePriceArray(arr);
+
+            if (vals.length === 0) {
+                addDataset('Vorjahr', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
+            } else {
+                addDataset('Vorjahr', vals, 'blue');
+            }
+        } else {
+            removeDatasetByLabel('Vorjahr');
+        }
+    });
+
+    document.getElementById('cb_workweekaverage')?.addEventListener('change', async e => {
+        if (!stromChart) return;
+
+        if (e.target.checked) {
+            const r = await fetch(`${API_BASE}/api/strompreise/workweekaverage_position`);
+            const arr = await r.json();
+            const vals = parsePriceArray(arr);
+
+            if (vals.length === 0) {
+                addDataset('AVG Arbeitswoche', movingAverage(stromChart.data.datasets[0].data, 9), 'purple');
+            } else {
+                addDataset('AVG Arbeitswoche', vals, 'purple');
+            }
+        } else {
+            removeDatasetByLabel('AVG Arbeitswoche');
+        }
+    });
+});
+
+/* ============================= */
+/* Logging                       */
+/* ============================= */
+
+function sendLogToServer(level, message) {
+    fetch(`${API_BASE}/client-log`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            level,
+            message,
+            timestamp: new Date().toISOString()
+        })
+    }).catch(() => {});
+}
