@@ -45,12 +45,24 @@ function parseDate(dateInput) {
     }
 }
 
+function parseDateDisplay(dateInput) {
+    const rawDate = (document.getElementById(dateInput).value || '').toString().trim();
+    let displayDate = '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
+        let year = rawDate.substring(0, 4);
+        let month = rawDate.substring(4, 6);
+        let day = rawDate.substring(6, 8);
+        displayDate = `${day}.${month}.${year}`;
+    }
+    return displayDate;
+}
+
 function loadTitleData() {
     const dateValue = document.getElementById("dateInput").value;
     const chartTitle = document.getElementById("chartTitle");
 
     if (dateValue) {
-        chartTitle.textContent = "Diagramm für " + dateValue;
+        chartTitle.textContent = "Diagramm für " + parseDateDisplay("dateInput");
     } else {
         chartTitle.textContent = "Diagramm"
     }
