@@ -62,9 +62,9 @@ function loadTitleData() {
     const chartTitle = document.getElementById("chartTitle");
 
     if (dateValue) {
-        chartTitle.textContent = "Diagramm für " + parseDateDisplay("dateInput");
+        chartTitle.textContent = "12Diagramm für " + parseDateDisplay("dateInput");
     } else {
-        chartTitle.textContent = "Diagramm"
+        chartTitle.textContent = "2Diagramm"
     }
 }
 
