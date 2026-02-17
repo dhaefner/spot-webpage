@@ -1,28 +1,4 @@
-
-document.getElementById('loadData').addEventListener('click', async() => {
-    const date = parseDate("dateInput")
-
-    const response = await fetch(`https://api.e-spotmarkt.de/data?date=${date}`)
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-    const data = await response.json()
-
-    updateChart(data)
-});
-
-function updateChart(data) {
-    const ctx = document.getElementById('chart').getContext('2d')
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: data.labels,
-            datasets: [{
-                label: 'Werte',
-                data: data.values,
-                borderColor: 'blue'
-            }]
-        }
-    });
-}
+import loadData from './api-client.js'
 
 function parseDate(dateInput) {
     try {
@@ -66,10 +42,5 @@ function loadTitleData() {
     } else {
         chartTitle.textContent = "Diagramm"
     }
-}
-
-function updateTitle() {
-    const dateValue = document.getElementById("dateInput").value;
-    document.getElementById("chartTitle").textContent =
-        dateValue ? "Diagramm für " + dateValue : "Diagramm"
+    loadData()
 }
