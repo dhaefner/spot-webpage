@@ -45,7 +45,7 @@ function parseDate(dateInput) {
     }
 }
 
-function loadData() {
+function loadTitleData() {
     const dateValue = document.getElementById("dateInput").value;
     const chartTitle = document.getElementById("chartTitle");
 

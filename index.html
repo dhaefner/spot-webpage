@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../root/css/stylesheet.css">
     <script src="../root/js/api-client.js"></script>
     <script src="../root/js/header-footer.js"></script>
+    <script src="../root/js/chart.js"></script>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -25,7 +26,7 @@
             <div>
                 <label for="dateInput">Date:</label>
                 <input type="date" id="dateInput" name="date" placeholder="2025-10-01" onchange="updateTitle()">
-                <button onclick="loadData()">Show</button>
+                <button onclick="loadTitleData()">Show</button>
             </div>
         </section>
         <section>
