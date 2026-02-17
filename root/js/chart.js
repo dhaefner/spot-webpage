@@ -1,4 +1,3 @@
-import { loadData } from './api-client.js';
 
 function parseDate(dateInput) {
     try {
