@@ -117,24 +117,16 @@ async function loadData() {
 
         let data = await response.json();
 
-        if (!Array.isArray(data) || data.length === 0) {
-            data = Array.from({ length: 96 }, (_, i) => ({
-                preis: (30 + 8 * Math.sin((i / 96) * Math.PI * 2)).toFixed(2)
-            }));
-        }
-
-        const values = parsePriceArray(data);
-
-        const labels = values.map((_, i) => {
-            const hour = Math.floor(i / 4);
-            const minute = (i % 4) * 15;
-            return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        const labels = data.map(d => {
+            const hour = String(d.position -1).padStart(2, "0");
+            return `${hour}:00`;
         });
 
-        const numericValues = values.filter(Number.isFinite);
-        const maxVal = Math.max(...numericValues);
-        const minVal = Math.min(...numericValues);
-        const padding = (maxVal - minVal) * 0.1;
+        const values = data.map(d => Number(d.value));
+
+        const minVal = Math.min(...values);
+        const maxVal = Math.max(...values);
+        const padding = (maxVal - minVal) * 0.1 || 5;
 
         const ctx = document.getElementById("stromChart").getContext("2d");
         if (stromChart) stromChart.destroy();
