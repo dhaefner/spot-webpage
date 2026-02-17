@@ -62,14 +62,14 @@ function loadTitleData() {
     const chartTitle = document.getElementById("chartTitle");
 
     if (dateValue) {
-        chartTitle.textContent = "12Diagramm für " + parseDateDisplay("dateInput");
+        chartTitle.textContent = "Diagramm für " + parseDateDisplay("dateInput");
     } else {
-        chartTitle.textContent = "2Diagramm"
+        chartTitle.textContent = "Diagramm"
     }
 }
 
 function updateTitle() {
     const dateValue = document.getElementById("dateInput").value;
     document.getElementById("chartTitle").textContent =
-        dateValue ? "1 Diagramm für " + dateValue : "Diagramm"
+        dateValue ? "Diagramm für " + dateValue : "Diagramm"
 }
