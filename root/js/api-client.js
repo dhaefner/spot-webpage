@@ -176,6 +176,47 @@ window.loadData = loadData;
 /* Checkbox Handlers             */
 /* ============================= */
 
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const ctx = document.getElementById("stromChart").getContext("2d");
+    const date = normalizeDate(document.getElementById('dateInput')?.value);
+    fetch(`${API_BASE}/data?date=${date}`)
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(d => {
+            // optional: Position (1–24) in Stunde umrechnen
+            const hour = String(d.position - 1).padStart(2, "0");
+            return `${hour}:00`;
+        });
+
+        const values = data.map(d => Number(d.value));
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [{
+                label: "Strompreis (€/MWh)",
+                data: values,
+                borderWidth: 2,
+                tension: 0.2
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: false
+                }
+              }
+            }
+        });
+    })
+    .catch(err => {
+        console.error("Fehler beim Laden der Daten:", err);
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
     loadData();
