@@ -1,4 +1,4 @@
-import loadData from './api-client.js'
+import { loadData } from './js/api-client.js';
 
 function parseDate(dateInput) {
     try {
