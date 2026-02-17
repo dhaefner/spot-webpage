@@ -62,7 +62,7 @@ function loadTitleData() {
     const chartTitle = document.getElementById("chartTitle");
 
     if (dateValue) {
-        chartTitle.textContent = "12Diagramm für " + parseDateDisplay("dateInput") + "hsdfkh";
+        chartTitle.textContent = "12Diagramm für " + parseDateDisplay("dateInput");
     } else {
         chartTitle.textContent = "2Diagramm"
     }
