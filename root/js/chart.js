@@ -50,8 +50,8 @@ function parseDateDisplay(dateInput) {
     let displayDate = '';
     if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
         let year = rawDate.substring(0, 4);
-        let month = rawDate.substring(4, 6);
-        let day = rawDate.substring(6, 8);
+        let month = rawDate.substring(5, 7);
+        let day = rawDate.substring(8, 10);
         displayDate = `${day}.${month}.${year}`;
     }
     return displayDate;
@@ -71,5 +71,5 @@ function loadTitleData() {
 function updateTitle() {
     const dateValue = document.getElementById("dateInput").value;
     document.getElementById("chartTitle").textContent =
-        dateValue ? "Diagramm für " + dateValue : "Diagramm"
+        dateValue ? "1 Diagramm für " + dateValue : "Diagramm"
 }
