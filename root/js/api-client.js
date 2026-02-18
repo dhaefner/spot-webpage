@@ -152,7 +152,7 @@ async function loadData() {
                 console.error("Error destroying existing chart:", err);
             }
         }
-        stromchart = null
+        stromChart = null
 
 
         stromChart = new Chart(ctx, {
