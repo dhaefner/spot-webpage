@@ -105,7 +105,7 @@ function addDataset(label, dataArray, color) {
     stromChart.update();
 }
 
-function addConstantDataset(label, value, color) {
+function addConstantDataset(label, labelDisplay, value, color) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
@@ -115,16 +115,21 @@ function addConstantDataset(label, value, color) {
     console.log("Adding constant dataset:", label,",", value);
 
     stromChart.data.datasets.push({
-        label,
         type: 'line',
-        data: data,
-        borderColor: color,
-        backgroundColor: color,
-        fill: false,
-        tension: 0.12,
-        borderWidth: 2,
-        pointRadius: 0,
-        spanGaps: true
+        data: {
+                labels: label,
+                datasets: [{
+                    label: labelDisplay,
+                    data: data,
+                    borderColor: color,
+                    backgroundColor: color,
+                    fill: false,
+                    tension: 0.12,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    spanGaps: true
+                }]
+            },
     });
     stromChart.update();
 }
@@ -296,13 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (value.length === 0) {
-                addConstantDataset('Day Average', 0, 'orange');
+                addConstantDataset('dayAverage', 'Day Average', 0, 'orange');
             } else {
-                addConstantDataset('Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'orange');
+                addConstantDataset('dayAverage', 'Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'orange');
             }
         } else {
             console.log("Day Average checkbox is unchecked");
-            removeDatasetByLabel('Day Average');
+            removeDatasetByLabel('dayAverage');
         }
     });
 
