@@ -115,7 +115,7 @@ function addConstantDataset(label, value, color) {
     stromChart.data.datasets.push({
         label,
         type: 'line',
-        data: data,
+        data: value,
         borderColor: color,
         backgroundColor: color,
         fill: false,
