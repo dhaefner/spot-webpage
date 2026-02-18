@@ -280,13 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Dayaverage checkbox is checked");
             const date = normalizeDate(document.getElementById('dateInput')?.value);
             const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log("Day Average response data:", data)
+            console.log("Day Average response data:", data);
 
-            console.log("Day Average response data:", data[0]["value"])
+            console.log("Day Average response data:", data[0]["value"]);
 
-            const value = data.map(d => Number(d.value[0]));
+            const value = data[0]["value"];
 
             console.log("Day Average data:", value);
             try {
