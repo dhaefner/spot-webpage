@@ -116,7 +116,7 @@ async function loadData() {
 
         const response = await fetch(`${API_BASE}/data?date=${apiDate}`);
         console.log(response)
-        if (!response.ok) throw new Error(response.status);
+            if (!response.ok) throw new Error(response.status);
 
         let data = await response.json();
         console.log(data)
