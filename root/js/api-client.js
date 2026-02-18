@@ -109,10 +109,7 @@ function removeDatasetByLabel(label) {
 
 
 async function loadData() {
-    if (stromChart) {
-        stromChart.destroy();
-        stromChart = null;
-    }
+
     loadTitleData()
     try {
         const rawDate = document.getElementById("dateInput")?.value;
@@ -134,14 +131,18 @@ async function loadData() {
             return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
         });
 
+        console.log("Labels:", labels);
+
         const values = data.map(d => Number(d.value));
+
+        console.log("Values:", values);
 
         const minVal = Math.min(...values);
         const maxVal = Math.max(...values);
         const padding = (maxVal - minVal) * 0.1 || 5;
 
         const ctx = document.getElementById("stromChart").getContext("2d");
-        if (stromChart) stromChart.destroy();
+        if (stromChart) stromChart.destroy(); console.log("Chart destroyed");
 
         stromChart = new Chart(ctx, {
             type: 'line',
