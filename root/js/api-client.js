@@ -123,6 +123,7 @@ function addConstantDataset(label, value, color) {
         fill: false,
         tension: 0.12,
         borderWidth: 2,
+        pointRadius: 1,
         spanGaps: true
     });
     stromChart.update();
