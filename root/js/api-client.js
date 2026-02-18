@@ -189,7 +189,7 @@ async function loadData() {
                 labels: labels,
                 datasets: [{
                     label: 'Strompreise',
-                    data: values,
+                    data: values[0],
                     borderColor: 'rgba(75,192,192,1)',
                     backgroundColor: 'rgba(75,192,192,0.2)',
                     fill: true,
