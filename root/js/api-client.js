@@ -243,9 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
     document.getElementById('cb_dayaverage')?.addEventListener('change', async e => {
+        console.log("Dayaverage checkbox changed:", e.target.checked);
         if (!stromChart) return;
 
         if (e.target.checked) {
+            console.log("Dayaverage checkbox is checked");
             const date = normalizeDate(document.getElementById('dateInput')?.value);
             const r = await fetch(`${API_BASE}/dayAverage?date=${date}`);
             const arr = await r.json();
@@ -257,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 addDataset('Dayaverage', vals, 'orange');
             }
         } else {
+            console.log("Dayaverage checkbox is unchecked");
             removeDatasetByLabel('Dayaverage');
         }
     });
