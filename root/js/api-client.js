@@ -275,9 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const cb_dayaverage = document.getElementById("cb_dayaverage");
-    if (cb_dayaverage) cb_dayaverage.checked = false;
-
     loadData();
 
     document.getElementById('cb_dayaverage')?.addEventListener('change', async e => {
