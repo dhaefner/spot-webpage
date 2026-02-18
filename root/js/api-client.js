@@ -282,11 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
             const data = await response.json();
 
-            console.log("Day Average response data:", data);
+            console.log("Day Average response data value:", data[0]["value"]);
 
-            console.log("Day Average response data:", data[0]["value"]);
-
-            const value = data[0]["value"];
+            let value = data[0]["value"];
 
             console.log("Day Average data:", value);
             try {
