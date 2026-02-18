@@ -152,8 +152,8 @@ async function loadData() {
                 console.error("Error destroying existing chart:", err);
             }
         }
-        stromChart = null
-
+        stromChart = null;
+        console.log("Chart reset to null");
 
         stromChart = new Chart(ctx, {
             type: 'line',
