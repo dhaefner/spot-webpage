@@ -117,7 +117,7 @@ function addConstantDataset(label, value, color) {
     stromChart.data.datasets.push({
         label,
         type: 'line',
-        data: value,
+        data: data,
         borderColor: color,
         backgroundColor: color,
         fill: false,
@@ -282,13 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
             const data = await response.json();
 
-            console.log("Day Average response data value:", data[0]["value"]);
-
             let value = data[0]["value"];
 
-            console.log("Day Average data:", value);
             try {
-                console.log("Day Average data length:", value.length);
                 console.log("Day Average data values:", value);
             } catch (err) {
                 console.error("Error processing day average data:", err);
