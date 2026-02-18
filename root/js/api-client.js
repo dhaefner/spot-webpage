@@ -109,6 +109,10 @@ function removeDatasetByLabel(label) {
 
 
 async function loadData() {
+    if (stromChart) {
+        stromChart.destroy();
+        stromChart = null;
+    }
     loadTitleData()
     try {
         const rawDate = document.getElementById("dateInput")?.value;
