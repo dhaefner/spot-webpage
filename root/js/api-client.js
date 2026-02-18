@@ -142,11 +142,11 @@ async function loadData() {
         const padding = (maxVal - minVal) * 0.1 || 5;
 
         const ctx = document.getElementById("stromChart").getContext("2d");
-        const existingChart = getChart("stromChart");
         
-        if (existingChart) {
+        if (stromChart) {
             try {
-                existingChart.destroy();
+                stromChart.destroy();
+                stromChart = null
                 console.log("Existing chart destroyed");
             } catch (err) {
                 console.error("Error destroying existing chart:", err);
