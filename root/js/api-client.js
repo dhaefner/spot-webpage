@@ -111,10 +111,11 @@ function addConstantDataset(label, value, color) {
     const len = stromChart.data.labels.length;
 
     const data = new Array(len).fill(Number.isFinite(value) ? value : NaN);
+    console.log("Adding constant dataset:", label, value, data);
     stromChart.data.datasets.push({
         label,
         type: 'line',
-        data,
+        data: data,
         borderColor: color,
         backgroundColor: color,
         fill: false,
