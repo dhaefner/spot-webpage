@@ -1,4 +1,5 @@
 /* api-client.js */
+import { loadTitleData } from './chart.js';
 
 let stromChart = null
 
@@ -108,6 +109,7 @@ function removeDatasetByLabel(label) {
 
 
 async function loadData() {
+    loadTitleData()
     try {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
