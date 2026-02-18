@@ -142,6 +142,10 @@ function removeDatasetByLabel(label) {
 async function loadData() {
 
     loadTitleData()
+
+    const cb_dayaverage = document.getElementById("cb_dayaverage");
+    if (cb_dayaverage) cb_dayaverage.checked = false;
+
     try {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
