@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (value.length === 0) {
                 addConstantDataset('Day Average', 0, 'orange');
             } else {
-                addConstantDataset('Day Average: ' + value, value, 'orange');
+                addConstantDataset('Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'orange');
             }
         } else {
             console.log("Day Average checkbox is unchecked");
