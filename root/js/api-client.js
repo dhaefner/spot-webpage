@@ -174,7 +174,6 @@ async function loadData() {
         console.error("Fehler beim Laden:", err);
     }
 }
-export { loadData };
 
 window.loadData = loadData;
 
