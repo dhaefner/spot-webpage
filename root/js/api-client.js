@@ -77,10 +77,17 @@ function addDataset(label, dataArray, color) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
-    const data = new Array(len)
+    let data;
 
-    for (let i = 0; i < len; i++) {
-        data[i] = Number.isFinite(dataArray[i]) ? dataArray[i] : NaN;
+    if (!Array.isArray(dataArray)) {
+        data = new Array(len).fill(
+            Number.isFinite(dataArray) ? dataArray : NaN
+        );
+    } else {
+        data = new Array(len);
+        for (let i = 0; i < len; i++) {
+            data[i] = Number.isFinite(dataArray[i]) ? dataArray[i] : NaN;
+        }
     }
 
     stromChart.data.datasets.push({
@@ -88,11 +95,10 @@ function addDataset(label, dataArray, color) {
         type: "line",
         data,
         borderColor: color,
-        backgroudColor: color,
+        backgroundColor: color,
         fill: false,
         tension: 0.12,
-        borderWith: 2,
-        pointRadius: 2,
+        borderWidth: 2,
         spanGaps: true
     });
 
