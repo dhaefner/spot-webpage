@@ -41,6 +41,5 @@ function loadTitleData() {
     } else {
         chartTitle.textContent = "Diagramm für NN"
     }
-    loadData()
 }
 export { loadTitleData }
