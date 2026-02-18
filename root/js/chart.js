@@ -39,7 +39,7 @@ function loadTitleData() {
     if (dateValue) {
         chartTitle.textContent = "Diagramm für " + parseDateDisplay("dateInput");
     } else {
-        chartTitle.textContent = "Diagramm"
+        chartTitle.textContent = "Diagramm für NN"
     }
     loadData()
 }
