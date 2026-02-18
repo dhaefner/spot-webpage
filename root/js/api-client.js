@@ -92,7 +92,7 @@ function addDataset(label, dataArray, color) {
 
     stromChart.data.datasets.push({
         label,
-        type: "line",
+        type: 'line',
         data,
         borderColor: color,
         backgroundColor: color,
@@ -102,6 +102,26 @@ function addDataset(label, dataArray, color) {
         spanGaps: true
     });
 
+    stromChart.update();
+}
+
+function addConstantDataset(label, value, color) {
+    if (!stromChart) return;
+
+    const len = stromChart.data.labels.length;
+
+    const data = new Array(len).fill(Number.isFinite(value) ? value : NaN);
+    stromChart.data.datasets.push({
+        label,
+        type: 'line',
+        data,
+        borderColor: color,
+        backgroundColor: color,
+        fill: false,
+        tension: 0.12,
+        borderWidth: 2,
+        spanGaps: true
+    });
     stromChart.update();
 }
 
@@ -256,14 +276,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Dayaverage checkbox is checked");
             const date = normalizeDate(document.getElementById('dateInput')?.value);
-            const r = await fetch(`${API_BASE}/dayAverage?date=${date}`);
-            const arr = await r.json();
-            const vals = parsePriceArray(arr);
+            const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
+            const data = await response.json()
 
-            if (vals.length === 0) {
-                addDataset('Day Aaverage', movingAverage(stromChart.data.datasets[0].data, 9), 'orange');
+            const value = data.map(d => Number(d.value));
+
+            if (value.length === 0) {
+                addConstantDataset('Day Average', value, 'orange');
             } else {
-                addDataset('Day Average', vals, 'orange');
+                addConstantDataset('Day Average', value, 'orange');
             }
         } else {
             console.log("Day Average checkbox is unchecked");
