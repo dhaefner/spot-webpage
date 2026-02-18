@@ -189,7 +189,7 @@ async function loadData() {
                 labels: labels,
                 datasets: [{
                     label: 'Strompreise',
-                    data: values[0],
+                    data: values,
                     borderColor: 'rgba(75,192,192,1)',
                     backgroundColor: 'rgba(75,192,192,0.2)',
                     fill: true,
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log("Day Average response data:", data)
 
-            const value = data.map(d => Number(d.value));
+            const value = data.map(d => Number(d.value[0]));
 
             console.log("Day Average data:", value);
             try {
