@@ -111,7 +111,9 @@ function addConstantDataset(label, value, color) {
     const len = stromChart.data.labels.length;
 
     const data = new Array(len).fill(Number.isFinite(value) ? value : NaN);
+
     console.log("Adding constant dataset:", label, value, data);
+
     stromChart.data.datasets.push({
         label,
         type: 'line',
@@ -282,10 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const value = data.map(d => Number(d.value));
 
+            console.log("Day Average data:", value);
+
             if (value.length === 0) {
                 addConstantDataset('Day Average', value, 'orange');
             } else {
-                addConstantDataset('Day Average', value, 'orange');
+                addConstantDataset('Day Average', 0, 'orange');
             }
         } else {
             console.log("Day Average checkbox is unchecked");
