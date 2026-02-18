@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Day Average data:", value);
             try {
                 console.log("Day Average data length:", value.length);
-                console.log("Day Average data values:", value[0]);
+                console.log("Day Average data values:", value);
             } catch (err) {
                 console.error("Error processing day average data:", err);
             }
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (value.length === 0) {
                 addConstantDataset('Day Average', 0, 'orange');
             } else {
-                addConstantDataset('Day Average', value[0], 'orange');
+                addConstantDataset('Day Average', value, 'orange');
             }
         } else {
             console.log("Day Average checkbox is unchecked");
