@@ -141,11 +141,17 @@ async function loadData() {
         const maxVal = Math.max(...values);
         const padding = (maxVal - minVal) * 0.1 || 5;
 
-        const ctx = document.getElementById("stromChart").getContext("2d");
-        
+
+        const existingChart = Chart.getChart("stromChart");
+        if (existingChart) {
+            existingChart.destroy();
+            console.log("Existing chart destroyed");
+        }
         stromChart = null;
         console.log("Chart reset to null");
 
+        const ctx = document.getElementById("stromChart").getContext("2d");
+        
         stromChart = new Chart(ctx, {
             type: 'line',
             data: {
