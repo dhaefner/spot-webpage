@@ -85,6 +85,7 @@ function addDataset(label, dataArray, color) {
 
     stromChart.data.datasets.push({
         label,
+        type: "line",
         data,
         borderColor: color,
         backgroudColor: color,
@@ -254,13 +255,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const vals = parsePriceArray(arr);
 
             if (vals.length === 0) {
-                addDataset('Dayaverage', movingAverage(stromChart.data.datasets[0].data, 9), 'orange');
+                addDataset('Day Aaverage', movingAverage(stromChart.data.datasets[0].data, 9), 'orange');
             } else {
-                addDataset('Dayaverage', vals, 'orange');
+                addDataset('Day Average', vals, 'orange');
             }
         } else {
-            console.log("Dayaverage checkbox is unchecked");
-            removeDatasetByLabel('Dayaverage');
+            console.log("Day Average checkbox is unchecked");
+            removeDatasetByLabel('Day Average');
         }
     });
 
