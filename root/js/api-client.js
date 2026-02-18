@@ -282,9 +282,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
             const data = await response.json()
 
+            console.log("Day Average response data:", data)
+
             const value = data.map(d => Number(d.value));
 
             console.log("Day Average data:", value);
+            try {
+                console.log("Day Average data length:", value.length);
+                console.log("Day Average data values:", value[0]);
+            } catch (err) {
+                console.error("Error processing day average data:", err);
+            }
 
             if (value.length === 0) {
                 addConstantDataset('Day Average', value, 'orange');
