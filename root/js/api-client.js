@@ -143,6 +143,7 @@ async function loadData() {
 
 
         const existingChart = Chart.getChart("stromChart");
+        console.log("Found existing chart:", existingChart);
         if (existingChart) {
             existingChart.destroy();
             console.log("Existing chart destroyed");
