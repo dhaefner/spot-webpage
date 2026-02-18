@@ -37,9 +37,9 @@ function loadTitleData() {
     const chartTitle = document.getElementById("chartTitle");
 
     if (dateValue) {
-        chartTitle.textContent = "Diagramm für " + parseDateDisplay("dateInput");
+        chartTitle.textContent = "Diagram for " + parseDateDisplay("dateInput");
     } else {
-        chartTitle.textContent = "Diagramm für 01.01.2025"
+        chartTitle.textContent = "Diagram for 01.01.2025"
     }
 }
 export { loadTitleData }
