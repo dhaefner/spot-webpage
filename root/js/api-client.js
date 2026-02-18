@@ -284,6 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log("Day Average response data:", data)
 
+            console.log("Day Average response data:", data[0]["value"])
+
             const value = data.map(d => Number(d.value[0]));
 
             console.log("Day Average data:", value);
