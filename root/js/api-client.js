@@ -143,15 +143,6 @@ async function loadData() {
 
         const ctx = document.getElementById("stromChart").getContext("2d");
         
-        if (stromChart) {
-            try {
-                stromChart.destroy();
-                stromChart = null
-                console.log("Existing chart destroyed");
-            } catch (err) {
-                console.error("Error destroying existing chart:", err);
-            }
-        }
         stromChart = null;
         console.log("Chart reset to null");
 
