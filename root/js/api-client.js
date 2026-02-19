@@ -136,6 +136,7 @@ function addDataset(label, displayLabel = label, dataArray, color) {
     });
 
     stromChart.update();
+    updateYAxisRange();
 }
 
 function addConstantDataset(label, labelDisplay, value, color) {
