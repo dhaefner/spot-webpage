@@ -349,22 +349,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('cb_lastyear')?.addEventListener('change', async e => {
+    document.getElementById('cb_previousYear')?.addEventListener('change', async e => {
+        console.log("Previous Year checkbox changed:", e.target.checked);
         if (!stromChart) return;
 
         if (e.target.checked) {
-            const date = normalizeDate(document.getElementById('dateInput')?.value);
-            const r = await fetch(`${API_BASE}/api/strompreise/lastyear?date=${date}`);
+            console.log("Previous Year checkbox is checked");
+            const date = previousYearDate(document.getElementById('dateInput')?.value);
+            const r = await fetch(`${API_BASE}/data?date=${date}`);
             const arr = await r.json();
             const vals = parsePriceArray(arr);
 
             if (vals.length === 0) {
-                addDataset('Vorjahr', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
+                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
             } else {
-                addDataset('Vorjahr', vals, 'blue');
+                addDataset('previosYearData', 'Previous Year',  vals, 'blue');
             }
         } else {
-            removeDatasetByLabel('Vorjahr');
+            console.log("Previous Year checkbox is unchecked");
+            removeDatasetByLabel('previosYearData');
         }
     });
 
