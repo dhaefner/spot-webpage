@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Work Day Average Intervall checkbox is checked");
             const date = normalizeDate(document.getElementById('dateInput')?.value);
-            const response = await fetch(`${API_BASE}/workingDayAverageIntervall?date=${date}`);
+            const response = await fetch(`${API_BASE}/workDayAverageIntervall?date=${date}`);
             const data = await response.json();
             const values = parsePriceArray(data);
 
