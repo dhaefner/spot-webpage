@@ -81,7 +81,30 @@ function makeShifted(values, shift) {
     return out;
 }
 
-function addDataset(label, displayLabel = label, dataArray, color) {
+function updateYAxisRange (padding=5) {
+    if (!stromChart) return;
+
+    let globalMin = Infinity;
+    let globalMax = Infinity;
+
+    stromChart.data.datasets.forEach(dataset => {
+        dataset.data.forEach(value => {
+            if (Number.isFinite(value)) {
+                if (value < globalMin) globalMin = value;
+                if (value > globalMax) globalMax = value;
+            }
+        })
+    });
+
+    if (globalMin === Infinity) return;
+
+    stromChart.options.scales.y.min = globalMin - padding;
+    stromChart.options.scales.y.max = globalMax + padding;
+
+    stromChart.update();
+}
+
+function addDataset(label, displayLabel = label, dataArray, color, minVal, maxVal, padding) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
@@ -112,6 +135,7 @@ function addDataset(label, displayLabel = label, dataArray, color) {
     });
 
     stromChart.update();
+    updateYAxisRange();
 }
 
 function addConstantDataset(label, labelDisplay, value, color) {
@@ -137,6 +161,7 @@ function addConstantDataset(label, labelDisplay, value, color) {
         spanGaps: true
     });
     stromChart.update();
+    updateYAxisRange();
 }
 
 function removeDatasetByLabel(label) {
@@ -361,9 +386,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const vals = parsePriceArray(arr);
 
             if (vals.length === 0) {
-                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
+                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue', minVal, maxVal, padding);
             } else {
-                addDataset('previosYearData', 'Previous Year',  vals, 'blue');
+                addDataset('previosYearData', 'Previous Year',  vals, 'blue', minVal, maxVal, padding);
             }
         } else {
             console.log("Previous Year checkbox is unchecked");
