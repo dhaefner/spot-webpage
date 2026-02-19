@@ -150,6 +150,9 @@ async function loadData() {
     const cb_dayaverage = document.getElementById("cb_dayaverage");
     if (cb_dayaverage) cb_dayaverage.checked = false;
 
+    const cb_workweek = document.getElementById("cb_workweek");
+    if (cb_workweek) cb_workweek.checked = false;
+
     try {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
@@ -359,19 +362,19 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Workweek average checkbox is checked");
             const date = normalizeDate(document.getElementById('dateInput')?.value);
             const response = await fetch(`${API_BASE}/workingDayAverage?date=${date}`);
-            console.log("Response:", response);
-                if (!response.ok) throw new Error(response.status);
-
             const data = await response.json();
-            console.log("Workweek average data:", data);
-            const vals = data.map(d => Number(d.value));
 
-            if (vals.length === 0) {
-                addDataset('workingdayaverage', 'Working Day Average', [], 'purple');
+            let value = data[0]["value"];
+
+            console.log("Working Day Average value:", value);
+
+            if (value.length === 0) {
+                addConstantDataset('workingdayaverage', 'Working Day Average', 0, 'purple');
             } else {
-                addDataset('workingdayaverage', 'Working Day Average', vals, 'purple');
+                addConstantDataset('workingdayaverage', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
             }
         } else {
+            console.log("Workweek average checkbox is unchecked");
             removeDatasetByLabel('workingdayaverage');
         }
     });
