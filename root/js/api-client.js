@@ -85,7 +85,7 @@ function updateYAxisRange (padding=5) {
     if (!stromChart) return;
 
     let globalMin = Infinity;
-    let globalMax = Infinity;
+    let globalMax = -Infinity;
 
     stromChart.data.datasets.forEach(dataset => {
         dataset.data.forEach(value => {
@@ -97,7 +97,6 @@ function updateYAxisRange (padding=5) {
     });
 
     if (globalMin === Infinity) return;
-    if (globalMax === Infinity) return;
 
     stromChart.options.scales.y.min = globalMin - padding;
     stromChart.options.scales.y.max = globalMax + padding;
