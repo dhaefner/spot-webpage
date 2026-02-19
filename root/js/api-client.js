@@ -92,6 +92,7 @@ function updateYAxisRange (padding=5) {
             if (Number.isFinite(value)) {
                 if (value < globalMin) globalMin = value;
                 if (value > globalMax) globalMax = value;
+                console.log("Value:", value, "GlobalMin:", globalMin, "GlobalMax:", globalMax);
             }
         })
     });
