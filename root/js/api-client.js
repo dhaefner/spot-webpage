@@ -112,34 +112,32 @@ function addConstantDataset(label, labelDisplay, value, color) {
 
     const data = new Array(len).fill(Number.isFinite(value) ? value : NaN);
 
-    console.log("Adding constant dataset:", label,",", value);
+    console.log("Adding constant dataset:", labelDisplay,",", value);
 
     stromChart.data.datasets.push({
         type: 'line',
-        data: {
-                labels: label,
-                datasets: [{
-                    label: labelDisplay,
-                    data: data,
-                    borderColor: color,
-                    backgroundColor: color,
-                    fill: false,
-                    tension: 0.12,
-                    borderWidth: 2,
-                    pointRadius: 0,
-                    spanGaps: true
-                }]
-            },
+        label: label,
+        displaylabel: labelDisplay,
+        data: data,
+        borderColor: color,
+        backgroundColor: color,
+        fill: false,
+        tension: 0.12,
+        borderWidth: 2,
+        pointRadius: 0,
+        spanGaps: true
     });
     stromChart.update();
 }
 
 function removeDatasetByLabel(label) {
+    console.log("Attempting to remove dataset:", label);
     if (!stromChart) return;
     const i = stromChart.data.datasets.findIndex(d => d.label === label);
     if (i !== -1) {
         stromChart.data.datasets.splice(i, 1);
         stromChart.update();
+        console.log("Removed dataset:", label);
     }
 }
 
