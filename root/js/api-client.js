@@ -225,7 +225,7 @@ async function loadData() {
                         labels: {
                             generateLabels(chart) {
                                 const original =
-                                    Chart.default.plugins.legend.labels.generateLabels;
+                                    Chart.defaults.plugins.legend.labels.generateLabels;
 
                                 const labels = original(chart);
 
