@@ -92,7 +92,6 @@ function updateYAxisRange (padding=5) {
             if (Number.isFinite(value)) {
                 if (value < globalMin) globalMin = value;
                 if (value > globalMax) globalMax = value;
-                console.log("Value:", value, "GlobalMin:", globalMin, "GlobalMax:", globalMax);
             }
         })
     });
@@ -102,6 +101,8 @@ function updateYAxisRange (padding=5) {
 
     stromChart.options.scales.y.min = globalMin - padding;
     stromChart.options.scales.y.max = globalMax + padding;
+
+    console.log("Updated Y-axis range:", stromChart.options.scales.y.min, stromChart.options.scales.y.max);
 
     stromChart.update();
 }
