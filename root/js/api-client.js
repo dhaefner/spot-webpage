@@ -98,6 +98,7 @@ function updateYAxisRange (padding=5) {
     });
 
     if (globalMin === Infinity) return;
+    if (globalMax === Infinity) return;
 
     stromChart.options.scales.y.min = globalMin - padding;
     stromChart.options.scales.y.max = globalMax + padding;
@@ -135,7 +136,6 @@ function addDataset(label, displayLabel = label, dataArray, color) {
         spanGaps: true
     });
 
-    stromChart.update();
     updateYAxisRange();
 }
 
