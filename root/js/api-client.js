@@ -161,7 +161,6 @@ function addConstantDataset(label, labelDisplay, value, color) {
         spanGaps: true
     });
     stromChart.update();
-    updateYAxisRange();
 }
 
 function removeDatasetByLabel(label) {
