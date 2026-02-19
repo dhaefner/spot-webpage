@@ -420,6 +420,28 @@ document.addEventListener('DOMContentLoaded', () => {
             removeDatasetByLabel('cb_workDayAverage');
         }
     });
+
+    document.getElementById('cb_workDayAverageIntervall')?.addEventListener('change', async e => {
+        console.log("Work Day Average Intervall checkbox changed:", e.target.checked);
+        if (!stromChart) return;
+
+        if (e.target.checked) {
+            console.log("Work Day Average Intervall checkbox is checked");
+            const date = normalizeDate(document.getElementById('dateInput')?.value);
+            const response = await fetch(`${API_BASE}/workingDayAverageIntervall?date=${date}`);
+            const data = await response.json();
+            const values = parsePriceArray(data);
+
+            if (values.length === 0) {
+                addDataset('workDayAverageIntervall', '', makeShifted(stromChart.data.datasets[0].data, 96), 'green');
+            } else {
+                addDataset('workDayAverageIntervall', 'Workday Average Intervall', values, 'green');
+            }
+        } else {
+            console.log("Work Day Average Intervall checkbox is unchecked");
+            removeDatasetByLabel('workDayAverageIntervall');
+        }
+    });
 });
 
 /* ============================= */
