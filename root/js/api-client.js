@@ -150,7 +150,7 @@ async function loadData() {
     const cb_dayaverage = document.getElementById("cb_dayaverage");
     if (cb_dayaverage) cb_dayaverage.checked = false;
 
-    const cb_workweek = document.getElementById("cb_workweek");
+    const cb_workweek = document.getElementById("cb_workweekavg");
     if (cb_workweek) cb_workweek.checked = false;
 
     try {
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('cb_workweekaverage')?.addEventListener('change', async e => {
+    document.getElementById('cb_workweekavg')?.addEventListener('change', async e => {
         console.log("Workweek average checkbox changed:", e.target.checked);
         if (!stromChart) return;
 
@@ -369,13 +369,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Working Day Average value:", value);
 
             if (value.length === 0) {
-                addConstantDataset('workingdayaverage', 'Working Day Average', 0, 'purple');
+                addConstantDataset('cb_workweekavg', 'Working Day Average', 0, 'purple');
             } else {
-                addConstantDataset('workingdayaverage', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
+                addConstantDataset('cb_workweekavg', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
             }
         } else {
             console.log("Workweek average checkbox is unchecked");
-            removeDatasetByLabel('workingdayaverage');
+            removeDatasetByLabel('cb_workweekavg');
         }
     });
 });
