@@ -104,7 +104,7 @@ function updateYAxisRange (padding=5) {
     stromChart.update();
 }
 
-function addDataset(label, displayLabel = label, dataArray, color, minVal, maxVal, padding) {
+function addDataset(label, displayLabel = label, dataArray, color) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
@@ -386,9 +386,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const vals = parsePriceArray(arr);
 
             if (vals.length === 0) {
-                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue', minVal, maxVal, padding);
+                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
             } else {
-                addDataset('previosYearData', 'Previous Year',  vals, 'blue', minVal, maxVal, padding);
+                addDataset('previosYearData', 'Previous Year',  vals, 'blue');
             }
         } else {
             console.log("Previous Year checkbox is unchecked");
