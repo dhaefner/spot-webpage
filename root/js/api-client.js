@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('cb_workweekavg')?.addEventListener('change', async e => {
+    document.getElementById('cb_workDayAverage')?.addEventListener('change', async e => {
         console.log("Workweek average checkbox changed:", e.target.checked);
         if (!stromChart) return;
 
@@ -386,13 +386,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Working Day Average value:", value);
 
             if (value.length === 0) {
-                addConstantDataset('cb_workweekavg', 'Working Day Average', 0, 'purple');
+                addConstantDataset('cb_workDayAverage', 'Working Day Average', 0, 'purple');
             } else {
-                addConstantDataset('cb_workweekavg', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
+                addConstantDataset('cb_workDayAverage', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
             }
         } else {
             console.log("Workweek average checkbox is unchecked");
-            removeDatasetByLabel('cb_workweekavg');
+            removeDatasetByLabel('cb_workDayAverage');
         }
     });
 });
