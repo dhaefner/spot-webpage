@@ -117,7 +117,7 @@ function addConstantDataset(label, labelDisplay, value, color) {
     stromChart.data.datasets.push({
         type: 'line',
         label: label,
-        displaylabel: labelDisplay,
+        displayLabel: labelDisplay,
         data: data,
         borderColor: color,
         backgroundColor: color,
@@ -219,9 +219,31 @@ async function loadData() {
                         min: minVal - padding,
                         max: maxVal + padding
                     }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            generateLabels(chart) {
+                                const original =
+                                    Chart.default.plugins.legend.labels.generateLabels;
+
+                                const labels = original(chart);
+
+                                labels.forEach(labelItem => {
+                                    const dataset =
+                                        chart.data.datasets[labelItem.datasetIndex];
+
+                                    if (dataset.displayLabel) {
+                                        labelItem.text = dataset.displayLabel;
+                                    }
+                                });
+                                return labels;
+                            }
+                        }
+                    }
                 }
             }
-        });
+    });
         console.log("Chart created");
 
     } catch (err) {
