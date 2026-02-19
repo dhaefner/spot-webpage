@@ -136,7 +136,7 @@ function addDataset(label, displayLabel = label, dataArray, color) {
         spanGaps: true
     });
 
-    updateYAxisRange();
+    updateYAxisRange(10);
 }
 
 function addConstantDataset(label, labelDisplay, value, color) {
