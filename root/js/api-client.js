@@ -73,7 +73,7 @@ function makeShifted(values, shift) {
     return out;
 }
 
-function addDataset(label, dataArray, color) {
+function addDataset(label, displayLabel = label, dataArray, color) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
@@ -91,7 +91,8 @@ function addDataset(label, dataArray, color) {
     }
 
     stromChart.data.datasets.push({
-        label,
+        label: label,
+        displayLabel: displayLabel,
         type: 'line',
         data,
         borderColor: color,
@@ -351,20 +352,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('cb_workweekaverage')?.addEventListener('change', async e => {
+        console.log("Workweek average checkbox changed:", e.target.checked);
         if (!stromChart) return;
 
         if (e.target.checked) {
-            const r = await fetch(`${API_BASE}/api/strompreise/workweekaverage_position`);
-            const arr = await r.json();
-            const vals = parsePriceArray(arr);
+            console.log("Workweek average checkbox is checked");
+            const date = normalizeDate(document.getElementById('dateInput')?.value);
+            const response = await fetch(`${API_BASE}/workingDayAverage?date=${date}`);
+            console.log("Response:", response);
+                if (!response.ok) throw new Error(response.status);
+
+            const data = await response.json();
+            console.log("Workweek average data:", data);
+            const vals = data.map(d => Number(d.value));
 
             if (vals.length === 0) {
-                addDataset('AVG Arbeitswoche', movingAverage(stromChart.data.datasets[0].data, 9), 'purple');
+                addDataset('workingdayaverage', 'Working Day Average', [], 'purple');
             } else {
-                addDataset('AVG Arbeitswoche', vals, 'purple');
+                addDataset('workingdayaverage', 'Working Day Average', vals, 'purple');
             }
         } else {
-            removeDatasetByLabel('AVG Arbeitswoche');
+            removeDatasetByLabel('workingdayaverage');
         }
     });
 });
