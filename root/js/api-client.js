@@ -21,6 +21,14 @@ function normalizeDate(rawDate, fallback = '20250101') {
     return fallback;
 }
 
+function previousYearDate(rawDate) {
+    const normalized = normalizeDate(rawDate);
+    const year = parseInt(normalized.substring(0, 4));
+    const month = normalized.substring(4, 6);
+    const day = normalized.substring(6, 8);
+    return `${year - 1}${month}${day}`;
+}
+
 function parsePriceArray(arr) {
     if (!Array.isArray(arr)) return [];
 
