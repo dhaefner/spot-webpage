@@ -150,8 +150,14 @@ async function loadData() {
     const cb_dayaverage = document.getElementById("cb_dayaverage");
     if (cb_dayaverage) cb_dayaverage.checked = false;
 
-    const cb_workweek = document.getElementById("cb_workweekavg");
-    if (cb_workweek) cb_workweek.checked = false;
+    const cb_workDayAverage = document.getElementById("cb_workDayAverage");
+    if (cb_workDayAverage) cb_workDayAverage.checked = false;
+
+    const cb_workDayAverageIntervall = document.getElementById("cb_workDayAverageIntervall");
+    if (cb_workDayAverageIntervall) cb_workDayAverageIntervall.checked = false;
+
+    const cb_previousYear = document.getElementById("cb_previousYear");
+    if (cb_previousYear) cb_previousYear.checked = false;
 
     try {
         const rawDate = document.getElementById("dateInput")?.value;
