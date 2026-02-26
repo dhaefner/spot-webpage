@@ -194,7 +194,7 @@ async function loadData() {
     const rawDate = document.getElementById("dateInput")?.value;
     console.log("Raw date:", rawDate);
     let inputDate;
-    if (!rawDate) {
+    if (rawDate && rawDate.trim() !== "") {
         inputDate = normalizeDate(rawDate);
         console.log("Input date:", inputDate);
     } else {
