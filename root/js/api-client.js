@@ -198,12 +198,17 @@ async function loadData() {
         inputDate = normalizeDate(rawDate);
         console.log("Input date:", inputDate);
     } else if (inputDate === null || inputDate === undefined) {
-        console.log("Input date is null or undefined");
-        console.log("Attempting to get custom date");
-        let customDate = getCustoDate()
-        console.log("Custom date:", customDate);
-        inputDate = normalizeDate(customDate);
-        console.log("Using custom date:", inputDate);
+        try {
+            console.log("Input date is null or undefined");
+            console.log("Attempting to get custom date");
+            let customDate = getCustoDate();
+            console.log("Custom date:", customDate);
+            inputDate = normalizeDate(customDate);
+            console.log("Using custom date:", inputDate);
+        } catch (err) {
+            console.log("Error getting custom date:", err);
+            alert("Fehler beim Abrufen des benutzerdefinierten Datums.");
+        }
     } 
 
     console.log("Input date:", inputDate);
