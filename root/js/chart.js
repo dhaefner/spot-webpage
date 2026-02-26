@@ -42,7 +42,9 @@ function loadTitleData(inputDate = 20250101) {
 
     if (inputDate) {
         console.log("Loading title data for input date:", inputDate);
-        chartTitle.textContent = "Diagram for " + parseDateDisplay(inputDate);
+        let displayDate = parseDateDisplay(inputDate);
+        console.log("Display date:", displayDate);
+        chartTitle.textContent = "Diagram for " + displayDate;
     } else {
         /* Dead tree*/
         chartTitle.textContent = "Diagram for unknown date";
