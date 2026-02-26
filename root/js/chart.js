@@ -36,7 +36,7 @@ function loadTitleData(inputDate = "01.01.2025") {
     const chartTitle = document.getElementById("chartTitle");
 
     if (inputDate) {
-        chartTitle.textContent = "Diagram for " + parseDateDisplay(inputDate);
+        chartTitle.textContent = "Diagram for " + parseDateDisplay("dateInput");
     } else {
         /* Dead tree*/
         chartTitle.textContent = "Diagram for unknown date";
