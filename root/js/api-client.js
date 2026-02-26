@@ -196,6 +196,8 @@ async function loadData() {
         inputDate = normalizeDate(getCustoDate());
     }
 
+    console.log("Input date:", inputDate);
+
     loadTitleData(inputDate);
 
     const cb_dayaverage = document.getElementById("cb_dayaverage");

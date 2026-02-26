@@ -38,6 +38,7 @@ function loadTitleData(inputDate = "01.01.2025") {
     if (inputDate) {
         chartTitle.textContent = "Diagram for " + parseDateDisplay(inputDate);
     } else {
+        /* Dead tree*/
         chartTitle.textContent = "Diagram for unknown date";
     }
 }
