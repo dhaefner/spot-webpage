@@ -216,7 +216,7 @@ async function loadData() {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
 
-        const response = await fetch(`${API_BASE}/data?date=${inputDate}`);
+        const response = await fetch(`${API_BASE}/data?date=${apiDate}`);
         console.log("Response:", response);
             if (!response.ok) throw new Error(response.status);
 
