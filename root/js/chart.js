@@ -40,7 +40,7 @@ function parseDateDisplay(dateInput) {
 function loadTitleData(inputDate = 20250101) {
     const chartTitle = document.getElementById("chartTitle");
 
-    if (inputDate) {
+    if (inputDate != null) {
         console.log("Loading title data for input date:", inputDate);
         let displayDate = parseDateDisplay(inputDate);
         console.log("Display date:", displayDate);
