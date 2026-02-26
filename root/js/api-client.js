@@ -193,11 +193,7 @@ async function loadData() {
 
     const rawDate = document.getElementById("dateInput")?.value;
     console.log("Raw date:", rawDate);
-    try {
-        const inputDate = null;
-    } catch (err) {
-        console.log("Error:", err);
-    }
+    let inputDate;
     if (rawDate != null) {
         inputDate = normalizeDate(rawDate);
         console.log("Input date:", inputDate);
