@@ -211,8 +211,6 @@ async function loadData() {
         }
     } 
 
-    console.log("Input date:", inputDate);
-
     loadTitleData(inputDate);
 
     const cb_dayaverage = document.getElementById("cb_dayaverage");
