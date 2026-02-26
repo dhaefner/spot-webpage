@@ -32,11 +32,12 @@ function parseDateDisplay(dateInput) {
     return displayDate;
 }
 
-function loadTitleData(inputDate = "01.01.2025") {
+function loadTitleData(inputDate = 20250101) {
     const chartTitle = document.getElementById("chartTitle");
 
     if (inputDate) {
-        chartTitle.textContent = "Diagram for " + parseDateDisplay("dateInput");
+        console.log("Loading title data for input date:", inputDate);
+        chartTitle.textContent = "Diagram for " + parseDateDisplay(inputDate);
     } else {
         /* Dead tree*/
         chartTitle.textContent = "Diagram for unknown date";

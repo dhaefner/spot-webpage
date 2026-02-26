@@ -29,9 +29,9 @@ function getCustoDate() {
     }
 
     const year = now.getFullYear();
-    const month = String(now.getMonth() +1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}${month}${day}`;
+    const month = now.getMonth() +1;
+    const day = now.getDate();
+    return year * 10000 + month * 100 + day;
 }
 
 function previousYearDate(rawDate) {
@@ -194,6 +194,7 @@ async function loadData() {
     const inputDate = normalizeDate(document.getElementById("dateInput")?.value);
     if (inputDate === null || inputDate === undefined) {
         inputDate = normalizeDate(getCustoDate());
+        console.log("Using custom date:", inputDate);
     }
 
     console.log("Input date:", inputDate);
@@ -216,7 +217,7 @@ async function loadData() {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
 
-        const response = await fetch(`${API_BASE}/data?date=${apiDate}`);
+        const response = await fetch(`${API_BASE}/data?date=${inputDate}`);
         console.log("Response:", response);
             if (!response.ok) throw new Error(response.status);
 
