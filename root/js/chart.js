@@ -32,14 +32,13 @@ function parseDateDisplay(dateInput) {
     return displayDate;
 }
 
-function loadTitleData() {
-    const dateValue = document.getElementById("dateInput").value;
+function loadTitleData(inputDate = "01.01.2025") {
     const chartTitle = document.getElementById("chartTitle");
 
-    if (dateValue) {
-        chartTitle.textContent = "Diagram for " + parseDateDisplay("dateInput");
+    if (inputDate) {
+        chartTitle.textContent = "Diagram for " + inputDate;
     } else {
-        chartTitle.textContent = "Diagram for 01.01.2025"
+        chartTitle.textContent = "Diagram for unknown date";
     }
 }
 export { loadTitleData }

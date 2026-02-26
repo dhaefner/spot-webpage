@@ -21,6 +21,19 @@ function normalizeDate(rawDate, fallback = '20250101') {
     return fallback;
 }
 
+function getCustoDate() {
+    const now = new Date();
+
+    if (now.getHours() >= 12) {
+        now.setDate(now.getDate() +1);
+    }
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() +1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+}
+
 function previousYearDate(rawDate) {
     const normalized = normalizeDate(rawDate);
     const year = parseInt(normalized.substring(0, 4));
@@ -178,7 +191,12 @@ function removeDatasetByLabel(label) {
 
 async function loadData() {
 
-    loadTitleData()
+    const inputDate = normalizeDate(document.getElementById("dateInput")?.value);
+    if (inputDate === null || inputDate === undefined) {
+        inputDate = normalizeDate(getCustoDate());
+    }
+
+    loadTitleData(inputDate);
 
     const cb_dayaverage = document.getElementById("cb_dayaverage");
     if (cb_dayaverage) cb_dayaverage.checked = false;
