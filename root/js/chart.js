@@ -26,7 +26,16 @@ function parseDateDisplay(dateInput) {
         let displayDate = '';
         if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
             const year = dateInput.substring(0, 4);
-            const month = dateInput.substring(5, 6);
+            const month = dateInput.substring(5, 7);
+            const day = dateInput.substring(8, 10);
+
+            console.log("Year:", year, "Month:", month, "Day:", day);
+
+            displayDate = `${day}.${month}.${year}`;
+        }
+        if (/^\d{8}$/.test(dateInput)) {
+            const year = dateInput.substring(0, 4);
+            const month = dateInput.substring(4, 6);
             const day = dateInput.substring(6, 8);
 
             console.log("Year:", year, "Month:", month, "Day:", day);
