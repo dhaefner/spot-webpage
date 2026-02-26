@@ -21,7 +21,30 @@ function normalizeDate(rawDate, fallback = '20250101') {
     return fallback;
 }
 
-function getCustoDate() {
+function formatDate(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() +1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}${m}${d}`;
+}
+
+function setDateLimits() {
+    const input = document.getElementById("dateInput");
+    if (!input) return;
+
+    const now = new Date();
+
+    const minDate = new Date(2024, 0, 1); // January 1, 2024
+    const maxDate = new Date();
+    if (now.getHours() >= 12) {
+        maxDate.setDate(maxDate.getDate() + 1);
+    }
+    
+    input.min = formatDate(minDate);
+    input.max = formatDate(maxDate);
+}
+
+function getCustomDate() {
     const now = new Date();
 
     if (now.getHours() >= 12) {
@@ -201,7 +224,7 @@ async function loadData() {
         try {
             console.log("Input date is null or undefined");
             console.log("Attempting to get custom date");
-            let customDate = getCustoDate();
+            let customDate = getCustomDate();
             console.log("Custom date:", customDate);
             inputDate = normalizeDate(customDate);
             console.log("Using custom date:", inputDate);
@@ -335,6 +358,11 @@ window.loadData = loadData;
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
+    document.addEventListener('DOMContentLoaded', () => {
+        setDateLimits();
+    });
+    
     loadData();
 
     document.getElementById('cb_dayaverage')?.addEventListener('change', async e => {
