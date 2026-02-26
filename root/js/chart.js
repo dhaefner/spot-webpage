@@ -28,6 +28,9 @@ function parseDateDisplay(dateInput) {
             let year = dateInput.substring(0, 4);
             let month = dateInput.substring(5, 6);
             let day = dateInput.substring(6, 8);
+
+            console.log("Year:", year, "Month:", month, "Day:", day);
+
             displayDate = `${day}.${month}.${year}`;
         }
         return displayDate;
