@@ -192,10 +192,12 @@ function removeDatasetByLabel(label) {
 async function loadData() {
 
     const rawDate = document.getElementById("dateInput")?.value;
-    const inputDate = normalizeDate(rawDate) || null;
     console.log("Raw date:", rawDate);
-    console.log("Input date:", inputDate);
-    if (inputDate === null || inputDate === undefined) {
+    const inputDate = null;
+    if (rawDate != null) {
+        inputDate = normalizeDate(rawDate);
+        console.log("Input date:", inputDate);
+    } else if (inputDate === null || inputDate === undefined) {
         console.log("Input date is null or undefined");
         console.log("Attempting to get custom date");
         let customDate = getCustoDate()
