@@ -358,12 +358,15 @@ window.loadData = loadData;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
-    document.addEventListener('DOMContentLoaded', () => {
-        setDateLimits();
-    });
-    
+    setDateLimits();    
     loadData();
+
+    document.getElementById('dateInput')?.addEventListener('change', function () {
+        if (this.values < this.min || this.value > this.max) {
+            alert("Ungültiges Datum");
+            this.value = "";
+        }
+    });
 
     document.getElementById('cb_dayaverage')?.addEventListener('change', async e => {
         console.log("Dayaverage checkbox changed:", e.target.checked);
