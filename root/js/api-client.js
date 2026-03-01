@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(this.value);
         console.log(this.min);
         console.log(this.max);
-        if (this.values < this.min || this.value > this.max) {
+        if (normalizeDate(this.values) < this.min || normalizeDate(this.value) > this.max) {
             console.log("unathorised date");
             alert("Ungültiges Datum");
             this.value = "";
