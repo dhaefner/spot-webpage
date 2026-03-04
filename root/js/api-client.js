@@ -2,7 +2,7 @@
 import { loadTitleData } from './chart.js';
 import { normalizeDate, formatDate, 
     setDateLimits, getCustomDate, 
-    previousYearDate, getInputDate } from './date-formats.js';
+    previousYearDateFormat, getInputDate } from './date-formats.js';
 
 let stromChart = null
 
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (e.target.checked) {
             console.log("Previous Year checkbox is checked");
-            const date = getInputDate();
+            const date = previousYearDateFormat(getInputDate());
             const r = await fetch(`${API_BASE}/data?date=${date}`);
             const arr = await r.json();
             const vals = parsePriceArray(arr);
