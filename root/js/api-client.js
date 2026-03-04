@@ -138,7 +138,7 @@ function removeDatasetByLabel(label) {
 async function loadData() {
 
     const inputDate = getInputDate();
-
+    console.log(inputDate);
     loadTitleData(inputDate);
 
     const cb_dayaverage = document.getElementById("cb_dayaverage");
