@@ -72,7 +72,7 @@ function getInputDate() {
             console.log("Attempting to get custom date");
             let customDate = getCustomDate();
             console.log("Custom date:", customDate);
-            inputdate = customDate;
+            inputDate = customDate;
             console.log("Using custom date:", inputDate);
         } catch (err) {
             console.log("Error getting custom date:", err);
