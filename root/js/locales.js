@@ -5,7 +5,6 @@ function getCurrentLanguage() {
 }
 
 document.addEventListener("headerFooterLoaded", () => {
-    console.log("layoutReady received");
     // not great, but it depends on header + footer being ready
     setTimeout(() => setLanguage(getCurrentLanguage()), 200);
 });
@@ -88,8 +87,6 @@ const translations = {
 };
 
 function setLanguage(lang) {
-    console.log("setLanguage called with:", lang);
-
     // fallback to def
     const activeLang = lang || getCurrentLanguage();
     // store & apply
