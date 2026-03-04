@@ -6,5 +6,9 @@ function loadHTML(id, url) {
                 })
         }
 
-loadHTML("header", "header.html")
-loadHTML("footer", "footer.html")
+Promise.all([
+    loadHTML("header", "header.html"),
+    loadHTML("footer", "footer.html")
+]).then(() => {
+    document.dispatchEvent(new Event("headerFooterLoaded"));
+});

@@ -1,3 +1,15 @@
+const DEFAULT_LANG = "de";
+
+function getCurrentLanguage() {
+    return localStorage.getItem("lang") || DEFAULT_LANG;
+}
+
+document.addEventListener("headerFooterLoaded", () => {
+    console.log("layoutReady received");
+    // not great, but it depends on header + footer being ready
+    setTimeout(() => setLanguage(getCurrentLanguage()), 200);
+});
+
 const translations = {
     de: {
         title: "Analysetool",
@@ -76,15 +88,21 @@ const translations = {
 };
 
 function setLanguage(lang) {
-    localStorage.setItem("lang", lang);
+    console.log("setLanguage called with:", lang);
+
+    // fallback to def
+    const activeLang = lang || getCurrentLanguage();
+    // store & apply
+    localStorage.setItem("lang", activeLang);
+    document.documentElement.lang = activeLang;
+
     document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.dataset.i18n;
-        if (translations[lang][key]) {
-            el.textContent = translations[lang][key];
+        if (translations[activeLang]?.[key]) {
+            el.textContent = translations[activeLang][key];
         }
     });
 }
-
 document.addEventListener("click", handleLanguageUI);
 
 function handleLanguageUI(e) {
@@ -107,3 +125,14 @@ function handleLanguageUI(e) {
         switcher.classList.remove("open");
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    let lang = localStorage.getItem("lang");
+
+    if (!lang) {
+        lang = DEFAULT_LANG;
+        localStorage.setItem("lang", lang);
+    }
+
+    setLanguage(lang);
+});
