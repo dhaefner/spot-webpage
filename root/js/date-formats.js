@@ -75,7 +75,7 @@ function getInputDate() {
             inputdate = normalizeDate(customDate);
             console.log("Using custom date:", inputDate);
         } catch (err) {
-            console.err("Error getting custom date:", err);
+            console.log("Error getting custom date:", err);
             alert("Error while calling custom date");
         }
     }
