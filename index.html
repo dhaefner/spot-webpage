@@ -9,21 +9,22 @@
     <link rel="icon" type="image/svg+xml" href="../root/images/lightning.svg">
     <link rel="stylesheet" href="../root/css/stylesheet.css">
     <script type="module" src="../root/js/api-client.js"></script>
-    <script src="root/js/header-footer.js"></script>
+    <script src="../root/js/header-footer.js" defer></script>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../root/js/locales.js" defer></script>
 </head>
 <body>
     <div id="header"></div>
 
     <main>
         <section>
-            <h1>Analyse-Tool</h1>
+            <h1 data-i18n="title"></h1>
         </section>
 
         <section>
             <div>
-                <label for="dateInput">Date:</label>
+                <label for="dateInput" data-i18n="dateLabel"></label>
                 <input type="date" id="dateInput" name="date", onchange="loadData()">
             </div>
         </section>
