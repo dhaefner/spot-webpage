@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Previous Year checkbox is checked");
             const date = previousYearDateFormat(getInputDate());
+            console.log("date of previous year:", date);
             const r = await fetch(`${API_BASE}/data?date=${date}`);
             const arr = await r.json();
             const vals = parsePriceArray(arr);
