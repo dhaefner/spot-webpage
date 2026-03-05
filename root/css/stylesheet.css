@@ -379,9 +379,9 @@ table {
 .cb-group {
     display: flex;
     gap: 16px;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
-    align-items: left;
+    align-items: center;
 }
 .hidden-cb {
     position: absolute;
