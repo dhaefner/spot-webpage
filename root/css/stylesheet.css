@@ -89,13 +89,13 @@ main {
     background-color: var(--color-background);
 }
 
-/* Responsive chart container: height controlled via CSS, canvas fills it */
+/* Responsive chart container: maintains 16:9 aspect ratio */
 .chart-container {
     margin: 16px auto;
     max-width: 1100px;
     width: calc(100% - 40px);
-    /* Height: min 260px, prefer 45vh, max 600px */
-    height: clamp(260px, 45vh, 600px);
+    aspect-ratio: 16 / 9;
+    max-height: 600px;
     background: transparent;
     display: block;
     box-sizing: border-box;
