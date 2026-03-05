@@ -13,7 +13,6 @@ const translations = {
     de: {
         title: "Analysetool",
         dateLabel: "Datum:",
-        diagramHeader: "Diagramm für den:",
         comparisonLabel: "Vergleichstag",
         avgOnDateLabel: "Tagesmittel Vergleichstag",
         avgDayToggle: "Tagesmittel anzeigen",
@@ -31,14 +30,18 @@ const translations = {
         headerLoginBtn: "Anmelden",
         headerLangBtn: "Language",
 
+        diagramHeader: "Diagramm für den:",
+        diagramHeaderEscape: "Unbekanntes Datum",
         diagramPriceLabel: "Strompreise",
-        diagramWDAvgIntervalLabel: "Werktagsdurchnitt (Intervall)",
+        diagramWDAvgInterval: "Werktagsdurchnitt (Intervall)",
         diagramDAvg: "Tagesdurchschnitt",
         diagramWDAvg: "Werktagsdurchschnitt",
         diagramPrevYearWDAvg: "Vorjahresvergleich Werktage (Intervall)",
         diagramPrevYearDAvg: "Vorjahresvergleich (Intervall)",
         diagramXAxisLabel: "Zeit (15-Minuten-Intervalle)",
         diagramYAxisLabel: "Preis (€/MWh)",
+
+        alertInvalidDate: "Ungültiges Datum",
 
         footerImprintURL: "Impressum",
         footerPrivacyURL: "Datenschutz",
@@ -52,7 +55,6 @@ const translations = {
     en: {
         title: "Analysis Tool",
         dateLabel: "Date:",
-        diagramHeader: "Diagram for:",
         comparisonLabel: "Comparison Day",
         avgOnDateLabel: "Comparison Day Average",
         avgDayToggle: "Show Daily Average",
@@ -70,14 +72,18 @@ const translations = {
         headerLoginBtn: "Login",
         headerLangBtn: "Sprache",
 
+        diagramHeader: "Diagram for:",
+        diagramHeaderEscape: "Unknown date",
         diagramPriceLabel: "Electricity Prices",
-        diagramWDAvgIntervalLabel: "Weekday Average (Interval)",
+        diagramWDAvgInterval: "Weekday Average (Interval)",
         diagramDAvg: "Daily Average",
         diagramWDAvg: "Weekday Average",
         diagramPrevYearWDAvg: "Previous Year Weekday Comparison (Interval)",
         diagramPrevYearDAvg: "Previous Year Comparison (Interval)",
         diagramXAxisLabel: "Time (15-Minute Intervals)",
         diagramYAxisLabel: "Price (€/MWh)",
+
+        alertInvalidDate: "Invalid Date",
         
         footerImprintURL: "Imprint",
         footerPrivacyURL: "Privacy Policy",
@@ -99,6 +105,12 @@ function setLanguage(lang) {
             el.textContent = translations[activeLang][key];
         }
     });
+
+    // update dynamic translations in other modules (e.g. chart)
+    if (typeof window.updateChartTranslations === "function") {
+        window.updateChartTranslations();
+        window.updateChartTitleTranslation();
+    }
 }
 document.addEventListener("click", handleLanguageUI);
 
@@ -133,3 +145,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setLanguage(lang);
 });
+
+
+/*  Helper to translate text for JS content
+    Includes option for var placement, e.g. t("DateLabel: {date}", {date: "01.01.2026"})
+*/
+function t(key, vars = {}) {
+    const lang = getCurrentLanguage();
+
+    let text = translations[lang]?.[key] 
+            ?? translations[DEFAULT_LANG]?.[key] 
+            ?? key;
+
+    Object.keys(vars).forEach(variable => {
+        text = text.replace(`{${variable}}`, vars[variable]);
+    });
+
+    return text;
+}
