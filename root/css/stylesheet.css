@@ -381,7 +381,7 @@ table {
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: left;
 }
 .hidden-cb {
     position: absolute;
