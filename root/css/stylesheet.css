@@ -329,6 +329,17 @@ table {
     overflow: hidden;
 }
 
+.responsive-table {
+    border-collapse: collapse;
+}
+
+.responsive-table td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+
+
 .split-tables {
     display:flex;
     gap: 16px;
@@ -477,5 +488,17 @@ footer nav a {
 
     .split-tables { flex-direction: column; }
     .split-table { min-width: 0; width: 100%; }
+
+    .responsive-table {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .responsive-table tr {
+        display: contents;
+    }
+
+    .responsive-table td:nth-child(1) {order: 1;}
+    .responsive-table td:nth-child(2) {order: 2;}
 }
 
