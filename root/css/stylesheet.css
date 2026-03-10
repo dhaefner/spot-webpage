@@ -490,18 +490,15 @@ footer nav a {
     .split-table { min-width: 0; width: 100%; }
 
     .responsive-table {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr;
     }
 
     .responsive-table tr {
         display: contents;
     }
-    .responsive-table td {
-        display: block;
-    }
 
-    .c1 {order: 1;}
-    .c2 {order: 2;}
+    .responsive-table td:nth-child(1) {order: 1;}
+    .responsive-table td:nth-child(2) {order: 2;}
 }
 
