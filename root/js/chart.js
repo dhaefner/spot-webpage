@@ -1,3 +1,4 @@
+let currentTitleDate = null; // storing it to be available on re-run of loadTitleData for Translation
 
 function parseDate(dateInput) {
     try {
@@ -52,15 +53,27 @@ function parseDateDisplay(dateInput) {
 
 function loadTitleData(inputDate = 20250101) {
     const chartTitle = document.getElementById("chartTitle");
+    if (!chartTitle) return;
+
+    currentTitleDate = inputDate; // store for re-use on translation change
 
     if (inputDate != null) {
         console.log("Loading title data for input date:", inputDate);
         let displayDate = parseDateDisplay(inputDate);
         console.log("Display date:", displayDate);
-        chartTitle.textContent = "Diagram for " + displayDate;
+        chartTitle.textContent = t("diagramHeader", {date: displayDate});
     } else {
         /* Dead tree*/
-        chartTitle.textContent = "Diagram for unknown date";
+        chartTitle.textContent = t("diagramHeaderEscape");
     }
 }
+
+function updateChartTitleTranslation() {
+    if (currentTitleDate !== null) {
+        loadTitleData(currentTitleDate);
+    }
+}
+
+window.updateChartTitleTranslation = updateChartTitleTranslation;
+
 export { loadTitleData }

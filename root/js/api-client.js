@@ -65,7 +65,7 @@ function updateYAxisRange (padding=5) {
     stromChart.update();
 }
 
-function addDataset(label, displayLabel = label, dataArray, color) {
+function addDataset(dataID, labelKey, dataArray, color, vars = {}) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
@@ -83,8 +83,11 @@ function addDataset(label, displayLabel = label, dataArray, color) {
     }
 
     stromChart.data.datasets.push({
-        label: label,
-        displayLabel: displayLabel,
+        id:dataID,
+        label: dataID,
+        labelKey: labelKey,
+        labelVars: vars,
+        displayLabel: t(labelKey, vars),
         type: 'line',
         data,
         borderColor: color,
@@ -98,19 +101,22 @@ function addDataset(label, displayLabel = label, dataArray, color) {
     updateYAxisRange(10);
 }
 
-function addConstantDataset(label, labelDisplay, value, color) {
+function addConstantDataset(dataID, labelKey, value, color, vars = {}) {
     if (!stromChart) return;
 
     const len = stromChart.data.labels.length;
 
     const data = new Array(len).fill(Number.isFinite(value) ? value : NaN);
 
-    console.log("Adding constant dataset:", labelDisplay,",", value);
+    console.log("Adding constant dataset:", labelKey,",", value);
 
     stromChart.data.datasets.push({
+        id: dataID,
+        label: dataID,
+        labelKey: labelKey,
+        labelVars: vars,
+        displayLabel: t(labelKey, vars),
         type: 'line',
-        label: label,
-        displayLabel: labelDisplay,
         data: data,
         borderColor: color,
         backgroundColor: color,
@@ -123,14 +129,14 @@ function addConstantDataset(label, labelDisplay, value, color) {
     stromChart.update();
 }
 
-function removeDatasetByLabel(label) {
-    console.log("Attempting to remove dataset:", label);
+function removeDatasetByID(id) {
+    console.log("Attempting to remove dataset:", id);
     if (!stromChart) return;
-    const i = stromChart.data.datasets.findIndex(d => d.label === label);
+    const i = stromChart.data.datasets.findIndex(d => d.id === id);
     if (i !== -1) {
         stromChart.data.datasets.splice(i, 1);
         stromChart.update();
-        console.log("Removed dataset:", label);
+        console.log("Removed dataset:", id);
     }
 }
 
@@ -200,7 +206,10 @@ async function loadData() {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Strompreise',
+                    id: "main",
+                    label: 'main',
+                    labelKey: "diagramPriceLabel",
+                    displayLabel: t("diagramPriceLabel"),
                     data: values,
                     borderColor: 'rgba(75,192,192,1)',
                     backgroundColor: 'rgba(75,192,192,0.2)',
@@ -216,10 +225,10 @@ async function loadData() {
                 maintainAspectRatio: false,
                 scales: {
                     x: {
-                        title: {display: true, text: "Zeit (15-Minuten-Intervalle)"}
+                        title: {display: true, text: t("diagramXAxisLabel") }
                     },
                     y: {
-                        title: {display: true, text: "Preis (€/MWh)"},
+                        title: {display: true, text: t("diagramYAxisLabel") },
                         min: minVal - padding,
                         max: maxVal + padding
                     }
@@ -257,6 +266,30 @@ async function loadData() {
 
 window.loadData = loadData;
 
+
+/* ============================= */
+/* Translation Stuff             */
+/* ============================= */
+
+function updateChartTranslations() {
+    if (!stromChart) return;i
+
+    stromChart.data.datasets.forEach(ds => {
+        if (ds.labelKey) {
+            ds.displayLabel = t(ds.labelKey, ds.labelVars || {});
+        }
+    });
+
+    stromChart.options.scales.x.title.text = t("diagramXAxisLabel");
+    stromChart.options.scales.y.title.text = t("diagramYAxisLabel");
+
+    stromChart.update();
+}     
+
+window.updateChartTranslations = updateChartTranslations;
+
+
+
 /* ============================= */
 /* Checkbox Handlers             */
 /* ============================= */
@@ -270,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("DateInput changed:", normalizeDate(this.value));
         if (normalizeDate(this.values) < this.min || normalizeDate(this.value) > this.max) {
             console.log("unathorised date");
-            alert("Ungültiges Datum");
+            alert(t("alertInvalidDate"));
             this.value = "20250101";
         }
     });
@@ -294,13 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (value.length === 0) {
-                addConstantDataset('dayAverage', 'Day Average', 0, 'orange');
+                addConstantDataset('dayAverage', 'diagramDAvg', 0, 'orange');
             } else {
-                addConstantDataset('dayAverage', 'Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'orange');
+                addConstantDataset("dayAverage", "diagramDAvg", value, "orange", {value: value.toFixed(2)});
             }
         } else {
             console.log("Day Average checkbox is unchecked");
-            removeDatasetByLabel('dayAverage');
+            removeDatasetByID('dayAverage');
         }
     });
 
@@ -316,13 +349,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const vals = parsePriceArray(arr);
 
             if (vals.length === 0) {
-                addDataset('previosYearData', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
+                addDataset('previousYear', '', makeShifted(stromChart.data.datasets[0].data, 96), 'blue');
             } else {
-                addDataset('previosYearData', 'Previous Year',  vals, 'blue');
+                addDataset('previousYear', 'diagramPrevYearDAvg',  vals, 'blue');
             }
         } else {
             console.log("Previous Year checkbox is unchecked");
-            removeDatasetByLabel('previosYearData');
+            removeDatasetByID('previousYear');
         }
     });
 
@@ -341,13 +374,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Working Day Average value:", value);
 
             if (value.length === 0) {
-                addConstantDataset('cb_workDayAverage', 'Working Day Average', 0, 'purple');
+                addConstantDataset('workingDayAvg', 'diagramWDAvg', 0, 'purple');
             } else {
-                addConstantDataset('cb_workDayAverage', 'Working Day Average: ' + value.toFixed(2) + ' €/MWh', value, 'purple');
+                addConstantDataset('workingDayAvg', 'diagramWDAvg', value, 'purple', {value: value.toFixed(2)});
             }
         } else {
             console.log("Workweek average checkbox is unchecked");
-            removeDatasetByLabel('cb_workDayAverage');
+            removeDatasetByID('workingDayAvg');
         }
     });
 
@@ -363,13 +396,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const values = parsePriceArray(data);
 
             if (values.length === 0) {
-                addDataset('workDayAverageIntervall', '', makeShifted(stromChart.data.datasets[0].data, 96), 'green');
+                addDataset('workDayAvgInterval', '', makeShifted(stromChart.data.datasets[0].data, 96), 'green');
             } else {
-                addDataset('workDayAverageIntervall', 'Workday Average Intervall', values, 'green');
+                addDataset('workDayAvgInterval', 'diagramWDAvgInterval', values, 'green');
             }
         } else {
             console.log("Work Day Average Intervall checkbox is unchecked");
-            removeDatasetByLabel('workDayAverageIntervall');
+            removeDatasetByID('workDayAvgInterval');
         }
     });
 });
