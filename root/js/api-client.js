@@ -272,7 +272,7 @@ window.loadData = loadData;
 /* ============================= */
 
 function updateChartTranslations() {
-    if (!stromChart) return;i
+    if (!stromChart) return;
 
     stromChart.data.datasets.forEach(ds => {
         if (ds.labelKey) {

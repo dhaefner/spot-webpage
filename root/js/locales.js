@@ -167,3 +167,5 @@ function t(key, vars = {}) {
 
     return text;
 }
+
+window.t = t;
