@@ -30,7 +30,7 @@ const translations = {
         headerLoginBtn: "Anmelden",
         headerLangBtn: "Language",
 
-        diagramHeader: "Diagramm für den {date}",
+        diagramHeader: "Diagramm für den:",
         diagramHeaderEscape: "Unbekanntes Datum",
         diagramPriceLabel: "Strompreise",
         diagramWDAvgInterval: "Werktagsdurchnitt (Intervall)",
@@ -72,7 +72,7 @@ const translations = {
         headerLoginBtn: "Login",
         headerLangBtn: "Sprache",
 
-        diagramHeader: "Diagram for {date}",
+        diagramHeader: "Diagram for:",
         diagramHeaderEscape: "Unknown date",
         diagramPriceLabel: "Electricity Prices",
         diagramWDAvgInterval: "Weekday Average (Interval)",
@@ -93,27 +93,23 @@ const translations = {
 };
 
 function setLanguage(lang) {
-    try {
-        // fallback to def
-        const activeLang = lang || getCurrentLanguage();
-        // store & apply
-        localStorage.setItem("lang", activeLang);
-        document.documentElement.lang = activeLang;
+    // fallback to def
+    const activeLang = lang || getCurrentLanguage();
+    // store & apply
+    localStorage.setItem("lang", activeLang);
+    document.documentElement.lang = activeLang;
 
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.dataset.i18n;
-            if (translations[activeLang]?.[key]) {
-                el.textContent = translations[activeLang][key];
-            }
-        });
-
-        // update dynamic translations in other modules (e.g. chart)
-        if (typeof window.updateChartTranslations === "function") {
-            window.updateChartTranslations();
-            window.updateChartTitleTranslation();
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[activeLang]?.[key]) {
+            el.textContent = translations[activeLang][key];
         }
-    } catch (error) {
-        console.error("Error setting language:", error);
+    });
+
+    // update dynamic translations in other modules (e.g. chart)
+    if (typeof window.updateChartTranslations === "function") {
+        window.updateChartTranslations();
+        window.updateChartTitleTranslation();
     }
 }
 document.addEventListener("click", handleLanguageUI);
@@ -167,5 +163,3 @@ function t(key, vars = {}) {
 
     return text;
 }
-
-window.t = t;
