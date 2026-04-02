@@ -163,7 +163,7 @@ async function loadData() {
         const rawDate = document.getElementById("dateInput")?.value;
         const apiDate = normalizeDate(rawDate);
 
-        const response = await fetch(`proxy.php?date=${inputDate}`);
+        const response = await fetch(`${API_BASE}/data?date=${inputDate}`);
         console.log("Response:", response);
             if (!response.ok) throw new Error(response.status);
 
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Dayaverage checkbox is checked");
             const date = getInputDate();
-            const response = await fetch(`proxy.php?path=dayAverage&date=${date}`);
+            const response = await fetch(`${API_BASE}/dayAverage?date=${date}`);
             const data = await response.json();
 
             let value = data[0]["value"];
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Previous Year checkbox is checked");
             const date = previousYearDateFormat(getInputDate());
-            const r = await fetch(`proxy.php?path=previousYear&date=${date}`);
+            const r = await fetch(`${API_BASE}/data?date=${date}`);
             const arr = await r.json();
             const vals = parsePriceArray(arr);
 
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Workweek average checkbox is checked");
             const date = getInputDate();
-            const response = await fetch(`proxy.php?path=workingDayAverage&date=${date}`);
+            const response = await fetch(`${API_BASE}/workingDayAverage?date=${date}`);
             const data = await response.json();
 
             let value = data[0]["value"];
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.checked) {
             console.log("Work Day Average Intervall checkbox is checked");
             const date = getInputDate();
-            const response = await fetch(`proxy.php?path=workDayAverageIntervall&date=${date}`);
+            const response = await fetch(`${API_BASE}/workDayAverageIntervall?date=${date}`);
             const data = await response.json();
             const values = parsePriceArray(data);
 
